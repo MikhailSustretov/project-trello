@@ -1,4 +1,4 @@
-import { ICard } from './ICard';
+import { ICard } from '../ListCard/IListCard';
 
 export interface IList {
     title: string;

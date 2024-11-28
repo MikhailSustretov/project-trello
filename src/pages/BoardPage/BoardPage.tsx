@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { ICard } from '../../../common/interfaces/ICard';
-import { List } from '../../List/components/List.tsx';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import List from '../../entities/Board/components/List/ui/List/List';
 
-export const Board = () => {
+const BoardPage = () => {
     const [title, setTitle] = useState('My test board');
     const [lists, setLists] = useState([
         {
@@ -29,11 +29,15 @@ export const Board = () => {
         },
     ]);
 
+    const { board_id } = useParams<{ board_id: string }>();
+
     return (
-        <div className="bg-gray-800 h-screen relative">
+        <div className="h-screen relative">
             <div className="p-6">
                 <div className="flex flex-col gap-4">
-                    <h1 className="p-4 m-auto rounded text-3xl font-sans text-white">{title}</h1>
+                    <h1 className="p-4 m-auto rounded text-3xl font-sans text-white">
+                        {title}: {board_id}
+                    </h1>
 
                     <div className="flex gap-4 overflow-x-auto">
                         <button className="flex-shrink-0 self-start bg-gray-600 text-2xl text-white p-5 rounded hover:bg-gray-700 hover:shadow-lg transition duration-100 ease-in-out">
@@ -51,3 +55,5 @@ export const Board = () => {
         </div>
     );
 };
+
+export default BoardPage;
