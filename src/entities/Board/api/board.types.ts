@@ -1,7 +1,10 @@
+import { ICard } from '@/entities/List/ui/ListCard/IListCard';
+
 export interface BoardRequest {
-    title: string;
+    title?: string;
     custom?: {
         description?: string;
+        color?: string;
     };
 }
 
@@ -10,5 +13,32 @@ export interface BoardResponse {
     title: string;
     custom?: {
         description?: string;
+        color?: string;
     };
+}
+
+export interface CreationResponse {
+    result: string;
+    id: number;
+}
+
+export interface FullBoardResponse {
+    title: string;
+    custom?: {
+        description?: string;
+        color?: string;
+    };
+    users: [
+        {
+            id: number;
+            username: string;
+        },
+    ];
+    lists: [
+        {
+            id: number;
+            title: string;
+            cards: [ICard];
+        },
+    ];
 }
