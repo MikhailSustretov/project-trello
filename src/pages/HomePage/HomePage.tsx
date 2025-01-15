@@ -12,7 +12,7 @@ const HomePage = () => {
 
     return (
         <div className="m-12">
-            <BoardsList boards={boards} onBoardCreate={refreshBoards} />
+            <BoardsList boards={boards} refreshBoards={refreshBoards} />
         </div>
     );
 };

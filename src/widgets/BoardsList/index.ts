@@ -1,1 +1,2 @@
-export { default as BoardsList } from './ui/BoardsList';
+export { BoardsProvider, useBoardsContext } from './model';
+export * from './ui/BoardsList';

@@ -22,6 +22,10 @@ export interface CreationResponse {
     id: number;
 }
 
+export interface DeletionResponse {
+    result: string;
+}
+
 export interface FullBoardResponse {
     title: string;
     custom?: {

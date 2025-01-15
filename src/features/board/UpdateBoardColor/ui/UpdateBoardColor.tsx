@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { useUpdateBoardColor } from '@/features/board/UpdateBoardColor/model/useUpdateBoardColor';
+import { BoardContext } from '@/widgets/Board/model';
 
 const STYLES = {
     wrapper: 'w-full flex justify-end',
@@ -8,15 +9,11 @@ const STYLES = {
     input: 'invisible',
 } as const;
 
-interface UpdateBoardColorProps {
-    boardId: number;
-    className?: string;
-    onUpdate: () => void;
-}
+export const UpdateBoardColor = () => {
+    const { boardId, refreshBoard } = useContext(BoardContext);
 
-export const UpdateBoardColor: React.FC<UpdateBoardColorProps> = ({ boardId, onUpdate }) => {
     const [newBoardColor, setNewBoardColor] = useState('#000000');
-    const { updateBoardColor } = useUpdateBoardColor(boardId, onUpdate);
+    const { updateBoardColor } = useUpdateBoardColor(boardId, refreshBoard);
 
     const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;

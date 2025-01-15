@@ -8,11 +8,11 @@ interface UseUpdateCardProps {
     card: IListCard;
     boardId: number;
     listId: number;
-    onCardUpdating: () => void;
     exitCardEditing: () => void;
+    refreshBoard: () => void;
 }
 
-export const useUpdateCard = ({ card, boardId, listId, onCardUpdating, exitCardEditing }: UseUpdateCardProps) => {
+export const useUpdateCard = ({ card, boardId, listId, exitCardEditing, refreshBoard }: UseUpdateCardProps) => {
     const [title, setTitle] = useState(card.title);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const { updateListCard } = useListApi();
@@ -37,7 +37,7 @@ export const useUpdateCard = ({ card, boardId, listId, onCardUpdating, exitCardE
             });
 
             if (result.result === 'Updated') {
-                onCardUpdating();
+                refreshBoard();
                 exitCardEditing();
             } else {
                 setErrorMessage('Failed to update the card');
@@ -60,5 +60,6 @@ export const useUpdateCard = ({ card, boardId, listId, onCardUpdating, exitCardE
         errorMessage,
         handleInputChange,
         handleSubmit,
+        isUpdateDisabled: title.trim() === '' || errorMessage !== null,
     };
 };

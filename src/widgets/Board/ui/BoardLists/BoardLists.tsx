@@ -1,10 +1,6 @@
-import { useContext } from 'react';
-
 import { FullBoardResponse } from '@/entities/Board';
 import { CreateList } from '@/features/list';
 import { ListWidget } from '@/widgets/List';
-
-import { BoardContext } from '@/widgets/Board/model';
 
 const LISTS_CLASSES = {
     wrapper: 'flex gap-4 overflow-x-auto',
@@ -17,19 +13,11 @@ interface BoardListsProps {
 }
 
 export const BoardLists: React.FC<BoardListsProps> = ({ lists }) => {
-    const { boardId, onUpdate } = useContext(BoardContext);
-
     return (
         <div className={LISTS_CLASSES.wrapper}>
-            <CreateList boardId={boardId} onListCreation={onUpdate} className={LISTS_CLASSES.list} />
+            <CreateList className={LISTS_CLASSES.list} />
             {lists.map((list) => (
-                <ListWidget
-                    key={list.id}
-                    list={list}
-                    className={LISTS_CLASSES.listItem}
-                    boardId={boardId}
-                    onUpdate={onUpdate}
-                />
+                <ListWidget key={list.id} list={list} className={LISTS_CLASSES.listItem} />
             ))}
         </div>
     );

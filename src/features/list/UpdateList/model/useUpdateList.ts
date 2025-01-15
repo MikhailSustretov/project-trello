@@ -7,11 +7,11 @@ interface UseUpdateListProps {
     initialTitle: string;
     boardId: number;
     listId: number;
-    onListEditing: () => void;
+    refreshBoard: () => void;
     exitEditing: () => void;
 }
 
-export const useUpdateList = ({ initialTitle, boardId, listId, onListEditing, exitEditing }: UseUpdateListProps) => {
+export const useUpdateList = ({ initialTitle, boardId, listId, refreshBoard, exitEditing }: UseUpdateListProps) => {
     const [title, setTitle] = useState(initialTitle);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const { updateList } = useListApi();
@@ -32,7 +32,7 @@ export const useUpdateList = ({ initialTitle, boardId, listId, onListEditing, ex
         try {
             const response = await updateList(boardId, listId, { title: newTitle });
             if (response.result === 'Updated') {
-                onListEditing();
+                refreshBoard();
                 exitEditing();
             } else {
                 setErrorMessage('Failed to update the list');

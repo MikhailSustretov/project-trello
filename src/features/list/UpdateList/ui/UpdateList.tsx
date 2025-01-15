@@ -1,16 +1,18 @@
 import { ValidatedTextInput } from '@/shared/ui';
 
 import { useUpdateList } from '@/features/list/UpdateList/model/useUpdateList';
+import { useContext } from 'react';
+import { BoardContext } from '@/widgets/Board/model';
 
 interface UpdateListProps {
     exitEditing: () => void;
     title: string;
-    boardId: number;
     listId: number;
-    onListEditing: () => void;
 }
 
-export const UpdateList = ({ exitEditing, title, boardId, listId, onListEditing }: UpdateListProps) => {
+export const UpdateList = ({ exitEditing, title, listId }: UpdateListProps) => {
+    const { boardId, refreshBoard } = useContext(BoardContext);
+
     const {
         title: currentTitle,
         errorMessage,
@@ -20,7 +22,7 @@ export const UpdateList = ({ exitEditing, title, boardId, listId, onListEditing 
         initialTitle: title,
         boardId,
         listId,
-        onListEditing,
+        refreshBoard,
         exitEditing,
     });
 

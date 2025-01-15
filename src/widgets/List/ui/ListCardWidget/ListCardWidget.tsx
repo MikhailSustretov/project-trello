@@ -1,17 +1,15 @@
 import { useState } from 'react';
 
-import { ListCard } from '@/entities/List';
 import { IListCard } from '@/entities/List';
 import { UpdateCard } from '@/features/card';
+import { CardWidget } from '@/widgets/Card/ui/CardWidget';
 
 interface ListCardWidgetProps {
     card: IListCard;
-    boardId: number;
     listId: number;
-    onUpdate: () => void;
 }
 
-export const ListCardWidget = ({ card, boardId, listId, onUpdate }: ListCardWidgetProps) => {
+export const ListCardWidget = ({ card, listId }: ListCardWidgetProps) => {
     const [isCardEditing, setIsCardEditing] = useState(false);
 
     const handleTitleClick = () => {
@@ -20,27 +18,14 @@ export const ListCardWidget = ({ card, boardId, listId, onUpdate }: ListCardWidg
         }
     };
 
-    const onCardUpdate = () => {
-        onUpdate();
-        setIsCardEditing(false);
-    };
-
     const exitCardEditing = () => {
         setIsCardEditing(false);
     };
 
     return (
         <div>
-            <ListCard card={card} onClick={handleTitleClick} />
-            {isCardEditing && (
-                <UpdateCard
-                    card={card}
-                    boardId={boardId}
-                    listId={listId}
-                    onCardUpdating={onCardUpdate}
-                    exitCardEditing={exitCardEditing}
-                />
-            )}
+            <CardWidget card={card} onClick={handleTitleClick} />
+            {isCardEditing && <UpdateCard card={card} listId={listId} exitCardEditing={exitCardEditing} />}
         </div>
     );
 };

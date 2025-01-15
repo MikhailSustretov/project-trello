@@ -1,26 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { ValidatedTextInput } from '@/shared/ui';
 
 import { useUpdateBoardTitle } from '@/features/board/UpdateBoardTitle/model/useUpdateBoardTitle';
+import { BoardContext } from '@/widgets/Board/model';
 
 interface UpdateBoardTitleProps {
-    boardId: number;
     title: string;
-    onUpdate: () => void;
     exitTitleEditing: () => void;
 }
 
-export const UpdateBoardTitle: React.FC<UpdateBoardTitleProps> = ({
-    boardId,
-    title: initialTitle,
-    onUpdate,
-    exitTitleEditing,
-}) => {
+export const UpdateBoardTitle = ({ title: initialTitle, exitTitleEditing }: UpdateBoardTitleProps) => {
+    const { boardId, refreshBoard } = useContext(BoardContext);
+
     const { title, errorMessage, handleTitleChange, handleTitleSubmit } = useUpdateBoardTitle(
         boardId,
         initialTitle,
-        onUpdate,
+        refreshBoard,
         exitTitleEditing
     );
 

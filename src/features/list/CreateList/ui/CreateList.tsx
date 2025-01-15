@@ -1,14 +1,16 @@
 import { ValidatedTextInput, CloseButton, GrayButton } from '@/shared/ui';
 
 import { useCreateList } from '@/features/list/CreateList/model/useCreateList';
+import { BoardContext } from '@/widgets/Board/model';
+import { useContext } from 'react';
 
 interface CreateListProps {
-    boardId: number;
-    onListCreation: () => void;
     className: string;
 }
 
-const CreateList = ({ boardId, onListCreation, className }: CreateListProps) => {
+const CreateList = ({ className }: CreateListProps) => {
+    const { boardId, refreshBoard } = useContext(BoardContext);
+
     const {
         isListCreating,
         listTitle,
@@ -17,7 +19,7 @@ const CreateList = ({ boardId, onListCreation, className }: CreateListProps) => 
         openListCreation,
         exitListCreation,
         handleListCreation,
-    } = useCreateList(boardId, onListCreation);
+    } = useCreateList(boardId, refreshBoard);
 
     return (
         <div className={`${className}`}>

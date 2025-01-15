@@ -6,10 +6,10 @@ import { defaultValidateTitle, logError } from '@/shared/lib';
 interface UseCreateCardProps {
     boardId: number;
     listId: number;
-    onUpdate: () => void;
+    refreshBoard: () => void;
 }
 
-export const useCreateCard = ({ boardId, listId, onUpdate }: UseCreateCardProps) => {
+export const useCreateCard = ({ boardId, listId, refreshBoard }: UseCreateCardProps) => {
     const [isCardCreating, setIsCardCreating] = useState(false);
     const [title, setTitle] = useState('');
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -26,7 +26,7 @@ export const useCreateCard = ({ boardId, listId, onUpdate }: UseCreateCardProps)
         try {
             const result = await addCardToList(boardId, { title: cardTitle, list_id: listId, position: 0 });
             if (result.result === 'Created') {
-                onUpdate();
+                refreshBoard();
                 exitCardCreation();
             } else {
                 setErrorMessage('Failed to create the card');

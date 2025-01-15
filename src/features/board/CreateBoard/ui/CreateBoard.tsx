@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react';
-
 import { GrayButton, ValidatedTextInput, CloseButton } from '@/shared/ui';
-
 import { useCreateBoard } from '@/features/board/CreateBoard/model/useCreateBoard';
+import { useBoardsContext } from '@/widgets/BoardsList/model';
 
 interface CreateBoardProps {
     onClose: () => void;
-    onBoardCreation: () => void;
 }
 
-const CreateBoard = ({ onClose, onBoardCreation }: CreateBoardProps) => {
+const CreateBoard = ({ onClose }: CreateBoardProps) => {
+    const { refreshBoards } = useBoardsContext();
     const { title, errorMessage, handleTitleChange, createBoard, resetForm, isCreateDisabled } = useCreateBoard(
-        onBoardCreation,
+        refreshBoards,
         onClose
     );
 

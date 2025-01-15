@@ -4,18 +4,16 @@ import { ListCardWidget } from '@/widgets/List/ui/ListCardWidget/ListCardWidget'
 
 interface ListCardsProps {
     cards: any[];
-    boardId: number;
     listId: number;
-    onUpdate: () => void;
 }
 
-export const ListCards = ({ cards, boardId, listId, onUpdate }: ListCardsProps) => {
+export const ListCards = ({ cards, listId }: ListCardsProps) => {
     return (
         <>
             {cards.map((card) => (
-                <ListCardWidget key={card.id} card={card} boardId={boardId} listId={listId} onUpdate={onUpdate} />
+                <ListCardWidget key={card.id} card={card} listId={listId} />
             ))}
-            <CreateCard boardId={boardId} listId={listId} onUpdate={onUpdate} />
+            <CreateCard listId={listId} />
         </>
     );
 };

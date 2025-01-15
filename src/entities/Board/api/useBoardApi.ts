@@ -1,6 +1,6 @@
 import { useAxios } from '@/shared/api';
 
-import { BoardRequest, BoardResponse, CreationResponse, FullBoardResponse } from './board.types';
+import { BoardRequest, BoardResponse, CreationResponse, DeletionResponse, FullBoardResponse } from './board.types';
 
 export const useBoardApi = () => {
     const axiosInstance = useAxios();
@@ -45,5 +45,15 @@ export const useBoardApi = () => {
         }
     };
 
-    return { createNewBoard, getBoards, getBoardById, updateBoard };
+    const deleteBoard = async (boardId: number): Promise<DeletionResponse> => {
+        try {
+            const response = await axiosInstance.delete(`/board/${boardId}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error deleting board:', error);
+            throw error;
+        }
+    };
+
+    return { createNewBoard, getBoards, getBoardById, updateBoard, deleteBoard };
 };

@@ -10,7 +10,7 @@ const BoardPage: React.FC = () => {
 
     if (!board) return null;
 
-    return <Board boardId={boardId} board={board} onUpdate={refreshBoard} />;
+    return <Board boardId={boardId} board={board} refreshBoard={refreshBoard} />;
 };
 
 export default BoardPage;

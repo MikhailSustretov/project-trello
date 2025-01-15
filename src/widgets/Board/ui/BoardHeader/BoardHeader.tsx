@@ -1,8 +1,6 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
 import { UpdateBoardTitle, UpdateBoardColor } from '@/features/board';
-
-import { BoardContext } from '@/widgets/Board/model';
 
 const HEADER_CLASSES = {
     wrapper: 'flex flex-col gap-4 relative',
@@ -15,7 +13,6 @@ interface BoardHeaderProps {
 }
 
 export const BoardHeader: React.FC<BoardHeaderProps> = ({ title }) => {
-    const { boardId, onUpdate } = useContext(BoardContext);
     const [isEditingTitle, setIsEditingTitle] = useState(false);
 
     const handleTitleClick = () => setIsEditingTitle(true);
@@ -23,15 +20,10 @@ export const BoardHeader: React.FC<BoardHeaderProps> = ({ title }) => {
 
     return (
         <div className={HEADER_CLASSES.wrapper}>
-            <UpdateBoardColor boardId={boardId} onUpdate={onUpdate} />
+            <UpdateBoardColor />
             <div className={HEADER_CLASSES.title} onClick={handleTitleClick}>
                 {isEditingTitle ? (
-                    <UpdateBoardTitle
-                        boardId={boardId}
-                        title={title}
-                        exitTitleEditing={exitTitleEditing}
-                        onUpdate={onUpdate}
-                    />
+                    <UpdateBoardTitle title={title} exitTitleEditing={exitTitleEditing} />
                 ) : (
                     <h1 className={HEADER_CLASSES.heading}>{title}</h1>
                 )}

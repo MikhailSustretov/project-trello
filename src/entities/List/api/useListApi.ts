@@ -1,4 +1,4 @@
-import { CreationResponse } from '@/entities/Board/api';
+import { CreationResponse, DeletionResponse } from '@/entities/Board/api';
 import { useAxios } from '@/shared/api/useAxios.ts';
 
 import { CreateCardRequestData, CreateOrUpdateListRequestData, UpdateCardRequestData } from './list.types.ts';
@@ -52,6 +52,16 @@ export const useListApi = () => {
         }
     };
 
+    const deleteList = async (boardId: number, listId: number): Promise<DeletionResponse> => {
+        try {
+            const response = await axiosInstance.delete(`/board/${boardId}/list/${listId}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error deleting list:', error);
+            throw error;
+        }
+    };
+
     const updateListCard = async (
         boardId: number,
         cardId: number,
@@ -66,10 +76,22 @@ export const useListApi = () => {
         }
     };
 
+    const deleteCard = async (boardId: number, cardId: number): Promise<DeletionResponse> => {
+        try {
+            const response = await axiosInstance.delete(`/board/${boardId}/card/${cardId}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error deleting card:', error);
+            throw error;
+        }
+    };
+
     return {
         createNewList,
         updateList,
         addCardToList,
         updateListCard,
+        deleteList,
+        deleteCard,
     };
 };

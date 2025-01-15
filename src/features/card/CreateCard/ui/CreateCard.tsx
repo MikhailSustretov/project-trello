@@ -1,16 +1,18 @@
 import { ValidatedTextInput, GrayButton, CloseButton } from '@/shared/ui';
 
 import { useCreateCard } from '@/features/card/CreateCard/model/useCreateCard';
+import { BoardContext } from '@/widgets/Board/model';
+import { useContext } from 'react';
 
 interface CreateCardProps {
-    boardId: number;
     listId: number;
-    onUpdate: () => void;
 }
 
-export const CreateCard = (props: CreateCardProps) => {
+export const CreateCard = ({ listId }: CreateCardProps) => {
+    const { boardId, refreshBoard } = useContext(BoardContext);
+
     const { isCardCreating, title, errorMessage, handleInputChange, handleSubmit, openCardCreation, exitCardCreation } =
-        useCreateCard(props);
+        useCreateCard({ boardId, listId, refreshBoard });
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
